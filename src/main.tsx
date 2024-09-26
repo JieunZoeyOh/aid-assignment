@@ -8,6 +8,7 @@ import {
 
 import App from "./App.tsx";
 import "./index.css";
+import NotFound from "./pages/NotFound.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/timetable",
     element: <App />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
