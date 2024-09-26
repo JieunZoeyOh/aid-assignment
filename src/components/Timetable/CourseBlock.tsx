@@ -5,7 +5,7 @@ export default function CourseBlock() {
   return (
     <li className="py-3">
       <div className="flex flex-col">
-        <div className="flex justify-between items-center w-full mb-2">
+        <div className="flex justify-between items-center mb-2">
           <div className="text-sm">1교시</div>
           <Button
             label="삭제"
@@ -14,9 +14,9 @@ export default function CourseBlock() {
             buttonType="btn-red"
           />
         </div>
-        <div className="flex flex-wrap min-w-0 text-sm font-medium text-gray-900 items-center gap-1">
+        <div className="flex text-gray-900 gap-2">
           <TimeInput />
-          <span className="px-2 flex items-center">~</span>
+          <span className="flex items-center">~</span>
           <TimeInput />
         </div>
       </div>

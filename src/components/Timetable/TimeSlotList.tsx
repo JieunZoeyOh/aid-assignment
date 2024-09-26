@@ -8,7 +8,7 @@ const TIME_SLOTS = [
 
 export default function TimeSlotList() {
   return (
-    <div className="grid grid-cols-1 my-2 lg:grid-cols-3 gap-2 justify-items-center items-center">
+    <div className="justify-items-center items-center grid grid-cols-1 my-2 lg:grid-cols-3 gap-2">
       {TIME_SLOTS.map((timeSlot) => (
         <TimeSlot key={timeSlot.name} {...timeSlot} />
       ))}
