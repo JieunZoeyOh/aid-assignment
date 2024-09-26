@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-blue {
+    @apply text-white bg-blue-700 hover:bg-blue-800;
+  }
+
+  .btn-red {
+    @apply text-white bg-red-700 hover:bg-red-800;
+  }
+
+  .btn-light {
+    @apply text-gray-900 border border-gray-300 bg-white hover:bg-gray-100;
+  }
+
+  .btn-black {
+    @apply text-white bg-gray-800 hover:bg-gray-900;
+  }
+
+  .btn-base {
+    @apply text-xs px-3 py-2.5 me-2 md:px-5 md:text-sm;
+  }
+
+  .btn-sm {
+    @apply text-xs px-2.5 py-2;
+  }
+}
