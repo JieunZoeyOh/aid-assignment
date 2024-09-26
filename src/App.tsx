@@ -12,7 +12,7 @@ export default function App() {
   return (
     <>
       <div className="flex justify-center mb-20">
-        <div className="w-full md:w-4/5">
+        <div className="w-full md:w-11/12 xl:w-4/5">
           <ClassGroupSetting />
           <ClassGroupList />
           <TimeSlotList />
