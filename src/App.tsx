@@ -1,16 +1,17 @@
-import { useState } from "react";
+import ClassGroupSetting from "./components/Timetable/ClassGroupSetting";
+import ClassGroupList from "./components/Timetable/ClassGroupList";
+import TimeSlotList from "./components/Timetable/TimeSlotList";
+import BreakTime from "./components/Timetable/BreakTime";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
-    <>
-      <button type="button" onClick={() => setCount(count + 1)}>
-        click
-      </button>
-      <div className="text-3xl font-bold underline">count: {count}</div>
-    </>
+    <div className="flex justify-center mb-20">
+      <div className="w-full md:w-4/5">
+        <ClassGroupSetting />
+        <ClassGroupList />
+        <TimeSlotList />
+        <BreakTime />
+      </div>
+    </div>
   );
 }
-
-export default App;
