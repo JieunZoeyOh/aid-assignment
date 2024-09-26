@@ -8,7 +8,7 @@ export default function CourseBlock() {
         <div className="flex justify-between items-center w-full mb-2">
           <div className="text-sm">1교시</div>
           <Button
-            title="삭제"
+            label="삭제"
             onClick={() => {}}
             buttonSize="btn-sm"
             buttonType="btn-red"

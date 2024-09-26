@@ -27,7 +27,7 @@ export default function TimeSlot({ name, description }: TimeSlotProps) {
         </ul>
       </div>
       <Button
-        title={`+ ${name} 교시 추가`}
+        label={`+ ${name} 교시 추가`}
         onClick={() => {}}
         isWidthFull
         buttonType="btn-black"

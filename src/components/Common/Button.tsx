@@ -1,5 +1,5 @@
 type ButtonProps = {
-  title: string;
+  label: string;
   onClick: () => void;
   isWidthFull?: boolean;
   buttonType?: string;
@@ -8,7 +8,7 @@ type ButtonProps = {
 
 export default function Button(props: ButtonProps) {
   const {
-    title,
+    label,
     onClick,
     isWidthFull = false,
     buttonType = "btn-light",
@@ -21,7 +21,7 @@ export default function Button(props: ButtonProps) {
       className={`${buttonType} ${buttonSize} ${isWidthFull && "w-full"} rounded-lg`}
       onClick={onClick}
     >
-      {title}
+      {label}
     </button>
   );
 }
