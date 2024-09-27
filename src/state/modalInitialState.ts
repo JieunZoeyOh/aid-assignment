@@ -1,4 +1,4 @@
-import { ModalState } from "../types";
+import { ModalState } from "./stateTypes";
 
 const initialState: ModalState = {
   message: "",

@@ -1,4 +1,4 @@
-import { TimetableState } from "../types";
+import { TimetableState } from "./stateTypes";
 
 const initialState: TimetableState = {
   breakTime: {

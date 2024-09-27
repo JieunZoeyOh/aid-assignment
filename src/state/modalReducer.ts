@@ -1,4 +1,4 @@
-import { ModalAction, ModalState } from "../types";
+import { ModalAction, ModalState } from "./stateTypes";
 
 export default function reducer(
   state: ModalState,

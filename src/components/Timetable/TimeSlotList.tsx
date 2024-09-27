@@ -2,6 +2,8 @@ import TimeSlot from "./TimeSlot";
 
 import useTimeableState from "../../hooks/useTimetableState";
 
+import { TimetableState } from "../../state/stateTypes";
+
 export default function TimeSlotList() {
   const state = useTimeableState();
 
@@ -12,16 +14,20 @@ export default function TimeSlotList() {
           key={index}
           slotIndex={index}
           name={timeSlot.period}
-          description={
-            index === 0
-              ? `~${state.breakTime.lunchTime.startTime.hour}:${state.breakTime.lunchTime.startTime.minute}`
-              : index === 1
-                ? `${state.breakTime.lunchTime.endTime.hour}:${state.breakTime.lunchTime.endTime.minute}~`
-                : `${state.breakTime.dinnerTime.endTime.hour}:${state.breakTime.dinnerTime.endTime.minute}~`
-          }
+          description={getDescription(index, state)}
           courses={timeSlot.courses}
         />
       ))}
     </div>
   );
+}
+
+function getDescription(index: number, state: TimetableState): string {
+  if (index === 0) {
+    return `~${state.breakTime.lunchTime.startTime.hour}:${state.breakTime.lunchTime.startTime.minute}`;
+  } else if (index === 1) {
+    return `${state.breakTime.lunchTime.endTime.hour}:${state.breakTime.lunchTime.endTime.minute}~`;
+  } else {
+    return `${state.breakTime.dinnerTime.endTime.hour}:${state.breakTime.dinnerTime.endTime.minute}~`;
+  }
 }

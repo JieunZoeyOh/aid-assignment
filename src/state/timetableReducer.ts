@@ -1,4 +1,4 @@
-import { TimetableAction, TimetableState } from "../types";
+import { TimetableAction, TimetableState } from "./stateTypes";
 
 export default function reducer(
   state: TimetableState,
