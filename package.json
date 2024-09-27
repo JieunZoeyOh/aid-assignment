@@ -1,10 +1,13 @@
 {
-  "name": "frontend-assignment",
+  "name": "frontend_assignment_ohjieun",
   "title": "FRONTEND_과제_오지은",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=20.17.0"
+  },
   "type": "module",
-  "description": "time table project",
+  "description": "timetable project",
   "author": {
     "name": "jieun oh"
   },
