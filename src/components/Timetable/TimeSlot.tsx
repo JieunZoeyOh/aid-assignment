@@ -1,37 +1,32 @@
 import CourseBlock from "./CourseBlock";
 import Button from "../Common/Button";
 
+import useTimetableDispatch from "../../hooks/useTimetableDispatch";
+
 import { Course } from "../../types";
 
 type TimeSlotProps = {
+  slotIndex: number;
   name: string;
   description: string;
-  startIndex: number;
   courses: Course[];
-  onAddCourseClick: () => void;
-  onUpdateCourseStartTimeClick: (
-    id: string,
-    hour: string,
-    minute: string,
-  ) => void;
-  onUpdateCourseEndTimeClick: (
-    id: string,
-    hour: string,
-    minute: string,
-  ) => void;
-  onDeleteCourseClick: (id: string) => void;
 };
 
 export default function TimeSlot({
+  slotIndex,
   name,
   description,
-  startIndex,
   courses,
-  onAddCourseClick,
-  onUpdateCourseStartTimeClick,
-  onUpdateCourseEndTimeClick,
-  onDeleteCourseClick,
 }: TimeSlotProps) {
+  const dispatch = useTimetableDispatch();
+
+  const handleAddCourse = () => {
+    dispatch({
+      type: "ADD_COURSE",
+      payload: { slotIndex },
+    });
+  };
+
   return (
     <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow">
       <div className="flex items-center gap-1 mb-4 font-bold">
@@ -44,22 +39,17 @@ export default function TimeSlot({
         {courses.map((course, index) => (
           <CourseBlock
             key={course.id}
-            courseNumber={startIndex + index + 1}
+            slotIndex={slotIndex}
+            courseId={course.id}
+            courseNumber={index + 1}
             startTime={course.startTime}
             endTime={course.endTime}
-            onStartTimeChange={(hour, minute) =>
-              onUpdateCourseStartTimeClick(course.id, hour, minute)
-            }
-            onEndTimeChange={(hour, minute) =>
-              onUpdateCourseEndTimeClick(course.id, hour, minute)
-            }
-            onDeleteCourseClick={() => onDeleteCourseClick(course.id)}
           />
         ))}
       </ul>
       <Button
         label={`+ ${name} 교시 추가`}
-        onClick={onAddCourseClick}
+        onClick={handleAddCourse}
         buttonType="btn-black"
         isWidthFull
         isDisabled={courses.length >= 5}

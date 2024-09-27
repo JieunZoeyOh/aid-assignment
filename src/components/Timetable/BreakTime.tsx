@@ -1,27 +1,36 @@
 import TimeInput from "../Common/TimeInput";
 
+import useTimetableState from "../../hooks/useTimetableState";
+import useTimetableDispatch from "../../hooks/useTimetableDispatch";
+
+import { BreakTime as BreakTimeType } from "../../types";
+
 type BreakTimeProps = {
   label: string;
-  breakTime: {
-    startTime: {
-      hour: string;
-      minute: string;
-    };
-    endTime: {
-      hour: string;
-      minute: string;
-    };
-  };
-  onStartTimeChange: (hour: string, minute: string) => void;
-  onEndTimeChange: (hour: string, minute: string) => void;
+  breakTimeType: keyof BreakTimeType;
 };
 
-export default function BreakTime({
-  label,
-  breakTime,
-  onStartTimeChange,
-  onEndTimeChange,
-}: BreakTimeProps) {
+export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
+  const state = useTimetableState();
+  const dispatch = useTimetableDispatch();
+
+  const breakTime = state.breakTime[breakTimeType];
+
+  const handleBreakTimeChange = (
+    hour: string,
+    minute: string,
+    timeType: "startTime" | "endTime",
+  ) => {
+    dispatch({
+      type: "UPDATE_BREAK_TIME",
+      payload: {
+        breakType: breakTimeType,
+        timeType,
+        time: { hour, minute },
+      },
+    });
+  };
+
   return (
     <div className="flex items-center justify-center gap-4 pt-2">
       <div className="text-sm">{label}</div>
@@ -29,13 +38,17 @@ export default function BreakTime({
         <TimeInput
           hour={breakTime.startTime.hour}
           minute={breakTime.startTime.minute}
-          onTimeChange={onStartTimeChange}
+          onTimeChange={(hour, minute) =>
+            handleBreakTimeChange(hour, minute, "startTime")
+          }
         />
         <span className="px-2 flex items-center">~</span>
         <TimeInput
           hour={breakTime.endTime.hour}
           minute={breakTime.endTime.minute}
-          onTimeChange={onEndTimeChange}
+          onTimeChange={(hour, minute) =>
+            handleBreakTimeChange(hour, minute, "endTime")
+          }
         />
       </div>
     </div>
