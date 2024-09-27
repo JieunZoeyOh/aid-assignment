@@ -1,12 +1,17 @@
-import { TimetableAction, TimetableState } from "./stateTypes";
+import { MAX_COURSES, shiftCourseEarlier } from "../utils/course";
+import { getTimeAfterMinutes } from "../utils/date";
 
-const MAX_COURSES = 5;
+import { TimetableAction, TimetableState } from "./stateTypes";
 
 export default function reducer(
   state: TimetableState,
   action: TimetableAction,
 ): TimetableState {
   switch (action.type) {
+    case "SET_TIMETABLE": {
+      const { timetable } = action.payload;
+      return timetable;
+    }
     case "UPDATE_BREAK_TIME": {
       const { breakType, timeType, time } = action.payload;
 
@@ -23,6 +28,26 @@ export default function reducer(
     }
     case "ADD_COURSE": {
       const { slotIndex } = action.payload;
+      const { lunchTime, dinnerTime } = state.breakTime;
+
+      let startTime = {
+        hour: "00",
+        minute: "00",
+      };
+
+      const courses = state.timeSlots[slotIndex].courses;
+      if (courses.length > 0) {
+        const lastCourse = courses[courses.length - 1];
+        startTime = getTimeAfterMinutes(lastCourse.endTime, 10);
+      } else {
+        if (slotIndex === 1) {
+          startTime = lunchTime.endTime;
+        } else if (slotIndex === 2) {
+          startTime = dinnerTime.endTime;
+        }
+      }
+
+      const endTime = getTimeAfterMinutes(startTime, 50);
 
       return {
         ...state,
@@ -33,8 +58,8 @@ export default function reducer(
             ...slot.courses,
             {
               id: crypto.randomUUID(),
-              startTime: { hour: "00", minute: "00" },
-              endTime: { hour: "00", minute: "00" },
+              startTime: { hour: startTime.hour, minute: startTime.minute },
+              endTime: { hour: endTime.hour, minute: endTime.minute },
             },
           ];
 
@@ -90,39 +115,4 @@ export default function reducer(
     default:
       return state;
   }
-}
-
-function shiftCourseEarlier(
-  slotIndex: number,
-  timetable: TimetableState,
-): TimetableState {
-  const { timeSlots } = timetable;
-
-  const isLastSlot = slotIndex >= timeSlots.length - 1;
-  const isFullSlotList = timeSlots[slotIndex].courses.length >= MAX_COURSES - 1;
-
-  if (isLastSlot || !isFullSlotList) return timetable;
-
-  const nextSlot = timeSlots[slotIndex + 1];
-
-  if (nextSlot.courses.length === 0) return timetable;
-
-  const [nextFirstCourse, ...nextRemainingCourses] = nextSlot.courses;
-
-  const newTimeSlots = timeSlots.map((slot, index) => {
-    if (index === slotIndex) {
-      return { ...slot, courses: [...slot.courses, nextFirstCourse] };
-    } else if (index === slotIndex + 1) {
-      return { ...slot, courses: nextRemainingCourses };
-    } else {
-      return slot;
-    }
-  });
-
-  const newTimetable = {
-    ...timetable,
-    timeSlots: newTimeSlots,
-  };
-
-  return shiftCourseEarlier(slotIndex + 1, newTimetable);
 }

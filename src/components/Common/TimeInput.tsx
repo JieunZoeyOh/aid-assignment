@@ -1,13 +1,6 @@
 import TimeSelect from "./TimeSelect";
+import { HOURS, MINUTES } from "../../utils/date";
 import { TimeInputProps } from "../../types";
-
-const HOURS = new Array(24)
-  .fill("0")
-  .map((item, index) => index.toString().padStart(2, item));
-
-const MINUTES = new Array(60)
-  .fill("0")
-  .map((item, index) => index.toString().padStart(2, item));
 
 export default function TimeInput({
   hour,

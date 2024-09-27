@@ -22,15 +22,10 @@ export type TimeSlot = {
   courses: Course[];
 };
 
-export type ClassBasicInfo = {
-  id: string;
-  name: string;
+export type ValidationMessage = {
+  courseId: string;
+  message: string;
 };
-
-export type Class = {
-  breakTime: BreakTime;
-  timeSlots: TimeSlot[];
-} & ClassBasicInfo;
 
 export type ButtonProps = {
   label: string;

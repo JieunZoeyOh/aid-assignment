@@ -17,6 +17,12 @@ export type AlertState = {
 
 export type TimetableAction =
   | {
+      type: "SET_TIMETABLE";
+      payload: {
+        timetable: TimetableState;
+      };
+    }
+  | {
       type: "UPDATE_BREAK_TIME";
       payload: {
         breakType: keyof BreakTime;
