@@ -9,7 +9,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/setupVitest.ts",
-    include: ["./src/test/*.test.jsx"],
+    include: ["./src/test/**/*.test.tsx"],
   },
   server: {
     port: 3000,
