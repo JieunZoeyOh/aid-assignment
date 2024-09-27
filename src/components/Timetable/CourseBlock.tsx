@@ -3,6 +3,7 @@ import TimeInput from "../Common/TimeInput";
 
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 import useTimetableState from "../../hooks/useTimetableState";
+import useAlertDispatch from "../../hooks/useAlertDispatch";
 
 import { TimeRange } from "../../types";
 import useModalDispatch from "../../hooks/useModalDispatch";
@@ -20,9 +21,10 @@ export default function CourseBlock({
   startTime,
   endTime,
 }: CourseBlockProps) {
+  const timetableState = useTimetableState();
   const timetableDispatch = useTimetableDispatch();
   const modalDispatch = useModalDispatch();
-  const timetableState = useTimetableState();
+  const alertDispatch = useAlertDispatch();
 
   const courseStartIndex = timetableState.timeSlots
     .slice(0, slotIndex)
@@ -40,17 +42,38 @@ export default function CourseBlock({
     hour: string,
     minute: string,
   ) => {
+    if (
+      timeType === "startTime" &&
+      endTime.hour + endTime.minute !== "0000" &&
+      hour + minute > endTime.hour + endTime.minute
+    ) {
+      alertDispatch({
+        type: "SHOW_ALERT",
+        payload: { message: "시작 시간은 종료 시간 이전이여야 합니다." },
+      });
+    }
+
+    if (
+      timeType === "endTime" &&
+      startTime.hour + startTime.minute > hour + minute
+    ) {
+      alertDispatch({
+        type: "SHOW_ALERT",
+        payload: { message: "종료 시간은 시작 시간 이후여야 합니다." },
+      });
+    }
+
     timetableDispatch({
       type: "UPDATE_COURSE_TIME",
       payload: { slotIndex, courseId, timeType, time: { hour, minute } },
     });
   };
 
-  const openConfirmModal = (courseNumber: number) => {
+  const openConfirmModal = (courseNum: number) => {
     modalDispatch({
       type: "SHOW_MODAL",
       payload: {
-        message: `${courseNumber}교시를 삭제 하시겠습니까?`,
+        message: `${courseNum}교시를 삭제 하시겠습니까?`,
         label: "삭제",
         onClick: handleDeleteCourseClick,
       },

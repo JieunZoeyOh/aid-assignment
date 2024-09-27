@@ -18,7 +18,7 @@ export default function Alert() {
 
   return (
     <div
-      className="absolute top-4 left-1/2 p-4 mb-4 text-sm text-blue-800 rounded-full bg-blue-50"
+      className="absolute min-w-72 text-center top-4 left-1/2 transform -translate-x-1/2 p-4 mb-4 text-sm text-blue-800 rounded-full bg-blue-50"
       role="alert"
     >
       <span className="font-medium">{state.message}</span>

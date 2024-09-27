@@ -11,7 +11,7 @@ export default function App() {
   const alertState = useAlertState();
 
   return (
-    <>
+    <div className="relative">
       <div className="flex justify-center mb-20">
         <div className="w-full md:w-11/12 xl:w-4/5">
           <div className="flex justify-end py-2">
@@ -39,6 +39,6 @@ export default function App() {
       </div>
       {modalState.message && <Modal />}
       {alertState.message && <Alert />}
-    </>
+    </div>
   );
 }

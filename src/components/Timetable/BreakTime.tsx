@@ -2,6 +2,7 @@ import TimeInput from "../Common/TimeInput";
 
 import useTimetableState from "../../hooks/useTimetableState";
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
+import useAlertDispatch from "../../hooks/useAlertDispatch";
 
 import { BreakTime as BreakTimeType } from "../../types";
 
@@ -11,17 +12,38 @@ type BreakTimeProps = {
 };
 
 export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
-  const state = useTimetableState();
-  const dispatch = useTimetableDispatch();
+  const timetableState = useTimetableState();
+  const timetableDispatch = useTimetableDispatch();
+  const alertDispatch = useAlertDispatch();
 
-  const breakTime = state.breakTime[breakTimeType];
+  const breakTime = timetableState.breakTime[breakTimeType];
 
   const handleBreakTimeChange = (
     hour: string,
     minute: string,
     timeType: "startTime" | "endTime",
   ) => {
-    dispatch({
+    const { startTime, endTime } = breakTime;
+
+    if (timeType === "startTime") {
+      if (hour + minute > endTime.hour + endTime.minute) {
+        alertDispatch({
+          type: "SHOW_ALERT",
+          payload: { message: "시작 시간은 종료 시간 이전이여야 합니다." },
+        });
+      }
+    } else {
+      if (startTime.hour + startTime.minute > hour + minute) {
+        alertDispatch({
+          type: "SHOW_ALERT",
+          payload: {
+            message: "종료 시간은 시작 시간 이후여야 합니다.",
+          },
+        });
+      }
+    }
+
+    timetableDispatch({
       type: "UPDATE_BREAK_TIME",
       payload: {
         breakType: breakTimeType,
