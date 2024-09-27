@@ -1,37 +1,34 @@
-import { useState } from "react";
-
 import Button from "../Common/Button";
 import TimeInput from "../Common/TimeInput";
 
-export default function CourseBlock() {
-  const [startTime, setStartTime] = useState({ hour: "00", minute: "00" });
-  const [endTime, setEndTime] = useState({ hour: "00", minute: "00" });
+import { TimeRange } from "../../types";
 
-  const handleStartTimeChange = (hour: string, minute: string) => {
-    setStartTime(() => ({
-      hour,
-      minute,
-    }));
-  };
+type CourseBlockProps = {
+  courseNumber: number;
+  onStartTimeChange: (hour: string, minute: string) => void;
+  onEndTimeChange: (hour: string, minute: string) => void;
+  onDeleteCourseClick: () => void;
+} & TimeRange;
 
-  const handleEndTimeChange = (hour: string, minute: string) => {
-    setEndTime(() => ({
-      hour,
-      minute,
-    }));
-  };
-
+export default function CourseBlock({
+  startTime,
+  endTime,
+  courseNumber,
+  onStartTimeChange,
+  onEndTimeChange,
+  onDeleteCourseClick,
+}: CourseBlockProps) {
   return (
     <li className="py-3">
       <div className="flex flex-col">
         <div className="flex justify-between items-center mb-2 gap-2">
-          <div className="text-sm">1교시</div>
-          <TimeInput {...startTime} onTimeChange={handleStartTimeChange} />
+          <div className="text-sm">{courseNumber}교시</div>
+          <TimeInput {...startTime} onTimeChange={onStartTimeChange} />
           <span className="flex items-center">~</span>
-          <TimeInput {...endTime} onTimeChange={handleEndTimeChange} />
+          <TimeInput {...endTime} onTimeChange={onEndTimeChange} />
           <Button
             label="삭제"
-            onClick={() => {}}
+            onClick={onDeleteCourseClick}
             buttonSize="btn-sm"
             buttonType="btn-red"
           />

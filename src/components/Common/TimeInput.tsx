@@ -1,10 +1,9 @@
 import TimeSelect from "./TimeSelect";
+import { Time } from "../../types";
 
 type TimeInputProps = {
-  hour: string;
-  minute: string;
   onTimeChange: (hour: string, minute: string) => void;
-};
+} & Time;
 
 const HOURS = new Array(24)
   .fill("0")
