@@ -1,27 +1,27 @@
 import { useEffect } from "react";
+import useAlertState from "../../hooks/useAlertState";
+import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-type AlertProps = {
-  message: string;
-  clearMessage: () => void;
-};
+export default function Alert() {
+  const state = useAlertState();
+  const dispatch = useAlertDispatch();
 
-export default function Alert({ message, clearMessage }: AlertProps) {
   useEffect(() => {
-    if (!message) return;
+    if (!state.message) return;
 
     const timer = setTimeout(() => {
-      clearMessage();
+      dispatch({ type: "CLOSE_ALERT" });
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [message, clearMessage]);
+  }, [state.message, dispatch]);
 
   return (
     <div
       className="absolute top-4 left-1/2 p-4 mb-4 text-sm text-blue-800 rounded-full bg-blue-50"
       role="alert"
     >
-      <span className="font-medium">{message}</span>
+      <span className="font-medium">{state.message}</span>
     </div>
   );
 }

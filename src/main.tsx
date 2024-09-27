@@ -7,8 +7,12 @@ import {
 } from "react-router-dom";
 
 import App from "./App.tsx";
-import "./index.css";
 import NotFound from "./pages/NotFound.tsx";
+import ModalProvider from "./contexts/ModalProvider.tsx";
+import TimetableProvider from "./contexts/TimetableProvider.tsx";
+import AlertProvider from "./contexts/AlertProvider.tsx";
+
+import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +21,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/timetable",
-    element: <App />,
+    element: (
+      <ModalProvider>
+        <AlertProvider>
+          <TimetableProvider>
+            <App />
+          </TimetableProvider>
+        </AlertProvider>
+      </ModalProvider>
+    ),
   },
   {
     path: "*",
