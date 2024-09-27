@@ -1,9 +1,5 @@
 import TimeSelect from "./TimeSelect";
-import { Time } from "../../types";
-
-type TimeInputProps = {
-  onTimeChange: (hour: string, minute: string) => void;
-} & Time;
+import { TimeInputProps } from "../../types";
 
 const HOURS = new Array(24)
   .fill("0")

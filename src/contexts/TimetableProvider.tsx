@@ -7,9 +7,9 @@ import {
   TimetableStateContext,
 } from "./TimetableContext";
 
-interface TimetableProviderProps {
+type TimetableProviderProps = {
   children: ReactElement;
-}
+};
 
 export default function TimetableProvider({
   children,

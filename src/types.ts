@@ -31,3 +31,34 @@ export type Class = {
   breakTime: BreakTime;
   timeSlots: TimeSlot[];
 } & ClassBasicInfo;
+
+export type ButtonProps = {
+  label: string;
+  onClick: () => void;
+  isWidthFull?: boolean;
+  isDisabled?: boolean;
+  buttonType?: "btn-blue" | "btn-red" | "btn-light" | "btn-black";
+  buttonSize?: "btn-base" | "btn-sm";
+};
+
+export type TimeInputProps = {
+  onTimeChange: (hour: string, minute: string) => void;
+} & Time;
+
+export type BreakTimeProps = {
+  label: string;
+  breakTimeType: keyof BreakTime;
+};
+
+export type CourseBlockProps = {
+  slotIndex: number;
+  courseId: string;
+  courseNumber: number;
+} & TimeRange;
+
+export type TimeSlotProps = {
+  slotIndex: number;
+  name: string;
+  description: string;
+  courses: Course[];
+};

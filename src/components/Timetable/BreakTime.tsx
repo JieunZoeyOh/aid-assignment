@@ -4,12 +4,7 @@ import useTimetableState from "../../hooks/useTimetableState";
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { BreakTime as BreakTimeType } from "../../types";
-
-type BreakTimeProps = {
-  label: string;
-  breakTimeType: keyof BreakTimeType;
-};
+import { BreakTimeProps } from "../../types";
 
 export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
   const timetableState = useTimetableState();

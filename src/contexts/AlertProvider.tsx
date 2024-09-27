@@ -4,9 +4,9 @@ import reducer from "../state/alertReducer";
 import initialState from "../state/alertInitialState";
 import { AlertDispatchContext, AlertStateContext } from "./AlertContext";
 
-interface AlertProviderProps {
+type AlertProviderProps = {
   children: ReactElement;
-}
+};
 
 export default function AlertProvider({ children }: AlertProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);

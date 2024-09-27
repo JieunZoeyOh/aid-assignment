@@ -4,9 +4,9 @@ import reducer from "../state/modalReducer";
 import initialState from "../state/modalInitialState";
 import { ModalDispatchContext, ModalStateContext } from "./ModalContext";
 
-interface ModalProviderProps {
+type ModalProviderProps = {
   children: ReactElement;
-}
+};
 
 export default function ModalProvider({ children }: ModalProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);

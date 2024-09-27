@@ -3,16 +3,10 @@ import TimeInput from "../Common/TimeInput";
 
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 import useTimetableState from "../../hooks/useTimetableState";
+import useModalDispatch from "../../hooks/useModalDispatch";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { TimeRange } from "../../types";
-import useModalDispatch from "../../hooks/useModalDispatch";
-
-type CourseBlockProps = {
-  slotIndex: number;
-  courseId: string;
-  courseNumber: number;
-} & TimeRange;
+import { CourseBlockProps } from "../../types";
 
 export default function CourseBlock({
   slotIndex,

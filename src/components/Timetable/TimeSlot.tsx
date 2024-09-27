@@ -3,14 +3,7 @@ import Button from "../Common/Button";
 
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 
-import { Course } from "../../types";
-
-type TimeSlotProps = {
-  slotIndex: number;
-  name: string;
-  description: string;
-  courses: Course[];
-};
+import { TimeSlotProps } from "../../types";
 
 export default function TimeSlot({
   slotIndex,
