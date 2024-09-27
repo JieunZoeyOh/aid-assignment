@@ -24,7 +24,7 @@ export default function CourseBlock({
   const modalDispatch = useModalDispatch();
   const timetableState = useTimetableState();
 
-  const startIndex = timetableState.timeSlots
+  const courseStartIndex = timetableState.timeSlots
     .slice(0, slotIndex)
     .reduce((acc, slot) => acc + slot.courses.length, 0);
 
@@ -61,7 +61,7 @@ export default function CourseBlock({
     <li className="py-3">
       <div className="flex flex-col">
         <div className="flex justify-between items-center mb-2 gap-2">
-          <div className="text-sm">{startIndex + courseNumber}교시</div>
+          <div className="text-sm">{courseStartIndex + courseNumber}교시</div>
           <TimeInput
             {...startTime}
             onTimeChange={(hour, minute) =>
@@ -77,9 +77,9 @@ export default function CourseBlock({
           />
           <Button
             label="삭제"
-            onClick={() => openConfirmModal(startIndex + courseNumber)}
             buttonSize="btn-sm"
             buttonType="btn-red"
+            onClick={() => openConfirmModal(courseStartIndex + courseNumber)}
           />
         </div>
       </div>
