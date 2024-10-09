@@ -6,7 +6,13 @@ import useTimetableState from "../../hooks/useTimetableState";
 import useModalDispatch from "../../hooks/useModalDispatch";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { CourseBlockProps } from "../../types";
+import { TimeRange } from "../../types";
+
+export type CourseBlockProps = {
+  slotIndex: number;
+  courseId: string;
+  courseNumber: number;
+} & TimeRange;
 
 export default function CourseBlock({
   slotIndex,
@@ -77,7 +83,7 @@ export default function CourseBlock({
   return (
     <li className="py-3">
       <div className="flex flex-col">
-        <div className="flex justify-between items-center mb-2 gap-2">
+        <div className="flex items-center justify-between gap-2 mb-2">
           <div className="text-sm">{courseStartIndex + courseNumber}교시</div>
           <TimeInput
             {...startTime}

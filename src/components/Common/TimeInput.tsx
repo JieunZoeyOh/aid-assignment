@@ -1,6 +1,12 @@
 import TimeSelect from "./TimeSelect";
+
 import { HOURS, MINUTES } from "../../utils/date";
-import { TimeInputProps } from "../../types";
+
+import { Time } from "../../types";
+
+export type TimeInputProps = {
+  onTimeChange: (hour: string, minute: string) => void;
+} & Time;
 
 export default function TimeInput({
   hour,

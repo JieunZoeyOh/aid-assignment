@@ -1,9 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import Button from "../../components/Common/Button";
-
-import { ButtonProps } from "../../types";
+import Button, { ButtonProps } from "../../components/Common/Button";
 
 describe("Button 컴포넌트", () => {
   const mockOnClick = vi.fn();

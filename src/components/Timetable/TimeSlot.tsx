@@ -3,7 +3,14 @@ import Button from "../Common/Button";
 
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 
-import { TimeSlotProps } from "../../types";
+import { Course } from "../../types";
+
+export type TimeSlotProps = {
+  slotIndex: number;
+  name: string;
+  description: string;
+  courses: Course[];
+};
 
 export default function TimeSlot({
   slotIndex,
@@ -28,7 +35,7 @@ export default function TimeSlot({
           ({description})
         </span>
       </div>
-      <ul className="divide-y divide-gray-200 mb-4">
+      <ul className="mb-4 divide-y divide-gray-200">
         {courses.map((course, index) => (
           <CourseBlock
             key={course.id}

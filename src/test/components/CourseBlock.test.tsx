@@ -1,14 +1,16 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import CourseBlock from "../../components/Timetable/CourseBlock";
+import CourseBlock, {
+  CourseBlockProps,
+} from "../../components/Timetable/CourseBlock";
+import { TimeInputProps } from "../../components/Common/TimeInput";
 
 import useTimetableState from "../../hooks/useTimetableState";
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 import useModalDispatch from "../../hooks/useModalDispatch";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { CourseBlockProps, TimeInputProps } from "../../types";
 import { TimetableState } from "../../state/stateTypes";
 
 vi.mock("../../hooks/useTimetableState");

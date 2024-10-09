@@ -1,9 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import TimeInput from "../../components/Common/TimeInput";
-
-import { TimeInputProps } from "../../types";
+import TimeInput, { TimeInputProps } from "../../components/Common/TimeInput";
 
 describe("TimeInput 컴포넌트", () => {
   const mockOnTimeChange = vi.fn();

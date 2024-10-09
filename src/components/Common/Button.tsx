@@ -1,4 +1,11 @@
-import { ButtonProps } from "../../types";
+export type ButtonProps = {
+  label: string;
+  onClick: () => void;
+  isWidthFull?: boolean;
+  isDisabled?: boolean;
+  buttonType?: "btn-blue" | "btn-red" | "btn-light" | "btn-black";
+  buttonSize?: "btn-base" | "btn-sm";
+};
 
 export default function Button(props: ButtonProps) {
   const {

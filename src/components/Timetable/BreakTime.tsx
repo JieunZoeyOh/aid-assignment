@@ -4,7 +4,12 @@ import useTimetableState from "../../hooks/useTimetableState";
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { BreakTimeProps } from "../../types";
+import { BreakTime as BreakTimeType } from "../../types";
+
+export type BreakTimeProps = {
+  label: string;
+  breakTimeType: keyof BreakTimeType;
+};
 
 export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
   const timetableState = useTimetableState();
@@ -51,7 +56,7 @@ export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
   return (
     <div className="flex items-center justify-center gap-4 pt-2">
       <div className="text-sm">{label}</div>
-      <div className="flex flex-wrap min-w-0 text-sm font-medium text-gray-900 items-center">
+      <div className="flex flex-wrap items-center min-w-0 text-sm font-medium text-gray-900">
         <TimeInput
           hour={breakTime.startTime.hour}
           minute={breakTime.startTime.minute}
@@ -59,7 +64,7 @@ export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
             handleBreakTimeChange(hour, minute, "startTime")
           }
         />
-        <span className="px-2 flex items-center">~</span>
+        <span className="flex items-center px-2">~</span>
         <TimeInput
           hour={breakTime.endTime.hour}
           minute={breakTime.endTime.minute}
