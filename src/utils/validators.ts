@@ -1,6 +1,6 @@
 import { timeToMinutes } from "./date";
 
-import { TimetableState } from "../state/stateTypes";
+import { TimetableState } from "../contexts/stateTypes";
 import { Course, Time, TimeRange, ValidationMessage } from "../types";
 
 /**

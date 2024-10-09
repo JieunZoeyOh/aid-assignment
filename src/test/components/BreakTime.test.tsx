@@ -8,7 +8,7 @@ import useTimetableState from "../../hooks/useTimetableState";
 import useTimetableDispatch from "../../hooks/useTimetableDispatch";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { TimetableState } from "../../state/stateTypes";
+import { TimetableState } from "../../contexts/stateTypes";
 
 vi.mock("../../hooks/useTimetableState");
 vi.mock("../../hooks/useTimetableDispatch");

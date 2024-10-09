@@ -1,8 +1,8 @@
 import { ReactElement, useReducer } from "react";
 
-import reducer from "../state/alertReducer";
-import initialState from "../state/alertInitialState";
 import { AlertDispatchContext, AlertStateContext } from "./AlertContext";
+
+import { AlertAction, AlertState } from "./stateTypes";
 
 type AlertProviderProps = {
   children: ReactElement;
@@ -18,4 +18,27 @@ export default function AlertProvider({ children }: AlertProviderProps) {
       </AlertDispatchContext.Provider>
     </AlertStateContext.Provider>
   );
+}
+
+const initialState: AlertState = {
+  message: "",
+};
+
+function reducer(state: AlertState, action: AlertAction): AlertState {
+  switch (action.type) {
+    case "CLOSE_ALERT": {
+      return {
+        ...state,
+        message: "",
+      };
+    }
+    case "SHOW_ALERT": {
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    }
+    default:
+      return state;
+  }
 }

@@ -2,7 +2,7 @@ import TimeSlot from "./TimeSlot";
 
 import useTimeableState from "../../hooks/useTimetableState";
 
-import { TimetableState } from "../../state/stateTypes";
+import { TimetableState } from "../../contexts/stateTypes";
 
 export default function TimeSlotList() {
   const state = useTimeableState();

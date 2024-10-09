@@ -14,7 +14,7 @@ import Alert from "../../components/Common/Alert";
 import useAlertState from "../../hooks/useAlertState";
 import useAlertDispatch from "../../hooks/useAlertDispatch";
 
-import { AlertState } from "../../state/stateTypes";
+import { AlertState } from "../../contexts/stateTypes";
 
 vi.mock("../../hooks/useAlertState");
 vi.mock("../../hooks/useAlertDispatch");

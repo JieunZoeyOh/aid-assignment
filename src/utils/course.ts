@@ -1,4 +1,4 @@
-import { TimetableState } from "../state/stateTypes";
+import { TimetableState } from "../contexts/stateTypes";
 import { TimeSlot } from "../types";
 
 export const CLASS_NAME = "Class 1";

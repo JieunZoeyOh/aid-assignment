@@ -5,7 +5,7 @@ import Modal from "../../components/Common/Modal";
 
 import useModalState from "../../hooks/useModalState";
 import useModalDispatch from "../../hooks/useModalDispatch";
-import { ModalState } from "../../state/stateTypes";
+import { ModalState } from "../../contexts/stateTypes";
 
 vi.mock("../../hooks/useModalState");
 vi.mock("../../hooks/useModalDispatch");
