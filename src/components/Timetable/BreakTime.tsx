@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import TimeInput from "../Common/TimeInput";
 
 import useTimetableState from "../../hooks/useTimetableState";
@@ -11,43 +13,53 @@ export type BreakTimeProps = {
   breakTimeType: keyof BreakTimeType;
 };
 
-export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
+const BreakTime = memo(function BreakTime({
+  label,
+  breakTimeType,
+}: BreakTimeProps) {
   const timetableState = useTimetableState();
   const timetableDispatch = useTimetableDispatch();
   const alertDispatch = useAlertDispatch();
 
   const breakTime = timetableState.breakTime[breakTimeType];
 
-  const handleBreakTimeChange = (
-    hour: string,
-    minute: string,
-    timeType: "startTime" | "endTime",
-  ) => {
-    const { startTime, endTime } = breakTime;
+  const handleBreakStartTimeChange = (hour: string, minute: string) => {
+    const { endTime } = breakTime;
 
-    if (timeType === "startTime") {
-      if (hour + minute > endTime.hour + endTime.minute) {
-        alertDispatch({
-          type: "SHOW_ALERT",
-          payload: { message: "시작 시간은 종료 시간 이전이여야 합니다." },
-        });
-      }
-    } else {
-      if (startTime.hour + startTime.minute > hour + minute) {
-        alertDispatch({
-          type: "SHOW_ALERT",
-          payload: {
-            message: "종료 시간은 시작 시간 이후여야 합니다.",
-          },
-        });
-      }
+    if (hour + minute > endTime.hour + endTime.minute) {
+      alertDispatch({
+        type: "SHOW_ALERT",
+        payload: { message: "시작 시간은 종료 시간 이전이여야 합니다." },
+      });
     }
 
     timetableDispatch({
       type: "UPDATE_BREAK_TIME",
       payload: {
         breakType: breakTimeType,
-        timeType,
+        timeType: "startTime",
+        time: { hour, minute },
+      },
+    });
+  };
+
+  const handleBreakEndTimeChange = (hour: string, minute: string) => {
+    const { startTime } = breakTime;
+
+    if (startTime.hour + startTime.minute > hour + minute) {
+      alertDispatch({
+        type: "SHOW_ALERT",
+        payload: {
+          message: "종료 시간은 시작 시간 이후여야 합니다.",
+        },
+      });
+    }
+
+    timetableDispatch({
+      type: "UPDATE_BREAK_TIME",
+      payload: {
+        breakType: breakTimeType,
+        timeType: "endTime",
         time: { hour, minute },
       },
     });
@@ -61,7 +73,7 @@ export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
           hour={breakTime.startTime.hour}
           minute={breakTime.startTime.minute}
           onTimeChange={(hour, minute) =>
-            handleBreakTimeChange(hour, minute, "startTime")
+            handleBreakStartTimeChange(hour, minute)
           }
         />
         <span className="flex items-center px-2">~</span>
@@ -69,10 +81,12 @@ export default function BreakTime({ label, breakTimeType }: BreakTimeProps) {
           hour={breakTime.endTime.hour}
           minute={breakTime.endTime.minute}
           onTimeChange={(hour, minute) =>
-            handleBreakTimeChange(hour, minute, "endTime")
+            handleBreakEndTimeChange(hour, minute)
           }
         />
       </div>
     </div>
   );
-}
+});
+
+export default BreakTime;

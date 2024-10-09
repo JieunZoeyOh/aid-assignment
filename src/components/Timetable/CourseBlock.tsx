@@ -37,13 +37,8 @@ export default function CourseBlock({
     });
   };
 
-  const handleUpdateCourseTime = (
-    timeType: "startTime" | "endTime",
-    hour: string,
-    minute: string,
-  ) => {
+  const handleUpdateCourseStartTime = (hour: string, minute: string) => {
     if (
-      timeType === "startTime" &&
       endTime.hour + endTime.minute !== "0000" &&
       hour + minute > endTime.hour + endTime.minute
     ) {
@@ -53,10 +48,19 @@ export default function CourseBlock({
       });
     }
 
-    if (
-      timeType === "endTime" &&
-      startTime.hour + startTime.minute > hour + minute
-    ) {
+    timetableDispatch({
+      type: "UPDATE_COURSE_TIME",
+      payload: {
+        slotIndex,
+        courseId,
+        timeType: "startTime",
+        time: { hour, minute },
+      },
+    });
+  };
+
+  const handleUpdateCourseEndTime = (hour: string, minute: string) => {
+    if (startTime.hour + startTime.minute > hour + minute) {
       alertDispatch({
         type: "SHOW_ALERT",
         payload: { message: "종료 시간은 시작 시간 이후여야 합니다." },
@@ -65,7 +69,12 @@ export default function CourseBlock({
 
     timetableDispatch({
       type: "UPDATE_COURSE_TIME",
-      payload: { slotIndex, courseId, timeType, time: { hour, minute } },
+      payload: {
+        slotIndex,
+        courseId,
+        timeType: "endTime",
+        time: { hour, minute },
+      },
     });
   };
 
@@ -88,14 +97,14 @@ export default function CourseBlock({
           <TimeInput
             {...startTime}
             onTimeChange={(hour, minute) =>
-              handleUpdateCourseTime("startTime", hour, minute)
+              handleUpdateCourseStartTime(hour, minute)
             }
           />
           <span className="flex items-center">~</span>
           <TimeInput
             {...endTime}
             onTimeChange={(hour, minute) =>
-              handleUpdateCourseTime("endTime", hour, minute)
+              handleUpdateCourseEndTime(hour, minute)
             }
           />
           <Button

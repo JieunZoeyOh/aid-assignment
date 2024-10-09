@@ -1,14 +1,16 @@
+import { memo } from "react";
+
 import TimeSlot from "./TimeSlot";
 
 import useTimeableState from "../../hooks/useTimetableState";
 
 import { TimetableState } from "../../contexts/stateTypes";
 
-export default function TimeSlotList() {
+const TimeSlotList = memo(function TimeSlotList() {
   const state = useTimeableState();
 
   return (
-    <div className="justify-items-center items-start grid grid-cols-1 my-2 lg:grid-cols-3 gap-2">
+    <div className="grid items-start grid-cols-1 gap-2 my-2 justify-items-center lg:grid-cols-3">
       {state.timeSlots.map((timeSlot, index) => (
         <TimeSlot
           key={index}
@@ -20,7 +22,9 @@ export default function TimeSlotList() {
       ))}
     </div>
   );
-}
+});
+
+export default TimeSlotList;
 
 function getDescription(index: number, state: TimetableState): string {
   if (index === 0) {
